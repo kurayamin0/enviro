@@ -1,3 +1,9 @@
+# Edits made but untested
+Added unit symbols
+Changed the way the microphone records results, previously it gave a voltage reading eg 0.077. My hope is the current changes mean it now converts the voltage to dB and saves them to the logs in dB.
+
+kurayamin0
+
 # Enviro MicroPython firmware <!-- omit in toc -->
 
 - [About Enviro](#about-enviro)
