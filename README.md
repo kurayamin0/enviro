@@ -1,4 +1,4 @@
-# Edits made but untested
+## Edits made but untested
 All changes only apply to the Urban Board/Code.
 
 Added unit symbols
@@ -6,14 +6,6 @@ Added unit symbols
 Changed the way the microphone records results, previously it gave a voltage reading eg 0.077. My hope is the current changes mean it now converts the voltage to dB and saves them to the logs in dB.
 
 kurayamin0
-
-# Enviro MicroPython firmware <!-- omit in toc -->
-
-- [About Enviro](#about-enviro)
-- [Powering Enviro boards](#powering-enviro-boards)
-- [Supported products](#supported-products)
-- [Supported endpoints](#supported-endpoints)
-- [Documentation](#documentation)
 
 ## About Enviro
 
@@ -34,17 +26,8 @@ These common features mean that the modules can run off very little power for lo
 
 As well as logging data locally Enviro boards can also use the Pico W's wireless functionality to upload the data they capture to a [supported endpoint](#supported-endpoints). Wireless communications take a lot of power so this should be done as infrequently as possible.
 
-## Powering Enviro boards
-
-Enviro boards are designed to run for months on a set of batteries so that you can install them wherever they can gather the best data - perhaps on that high shelf in the corner of the kitchen that you can't quite reach, under a Stevenson screen in the back garden, or tucked in the shed.
-
-You can use 3xAA or 3xAAA (either alkaline or NiMH), a single cell LiPo battery, or a USB cable to power Enviro boards.
 
 ## Supported products
-
-- Enviro Indoor ([store link](https://shop.pimoroni.com/products/enviro-indoor))
-- Enviro Grow ([store link](https://shop.pimoroni.com/products/enviro-grow))
-- Enviro Weather ([store link](https://shop.pimoroni.com/products/enviro-weather))
 - Enviro Urban ([store link](https://shop.pimoroni.com/products/enviro-urban))
 
 ## Supported endpoints
@@ -52,14 +35,3 @@ You can use 3xAA or 3xAAA (either alkaline or NiMH), a single cell LiPo battery,
 - [InfluxDB](documentation/destinations/influxdb.md)
 - [MQTT](documentation/destinations/mqtt.md)
 - [Custom HTTP endpoint](documentation/destinations/custom-http-endpoint.md)
-
-## Documentation
-
-- [Quickstart guide](documentation/getting-started.md)
-- [Troubleshooting your Enviro board](documentation/troubleshooting.md)
-- [Upgrading firmware](documentation/upgrading-firmware.md)
-- Sensor info: [Indoor](documentation/boards/enviro-indoor.md) / [Grow](documentation/boards/enviro-grow.md) / [Weather](documentation/boards/enviro-weather.md) / [Urban](documentation/boards/enviro-urban.md)
-
-- Getting Started with Enviro ([Learn link](https://learn.pimoroni.com/article/getting-started-with-enviro))
-- Enviro and InfluxDB ([Learn link](https://learn.pimoroni.com/article/enviro-and-influxdb))
-- Plant Monitoring with Enviro Grow ([Learn link](https://learn.pimoroni.com/article/plant-monitoring-with-enviro-grow))
