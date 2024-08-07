@@ -5,6 +5,7 @@ from pimoroni_i2c import PimoroniI2C
 from phew import logging
 from enviro import i2c
 
+
 # how long to capture the microphone signal for when taking a reading, in milliseconds
 MIC_SAMPLE_TIME_MS = 500
 
@@ -13,6 +14,9 @@ sensor_enable_pin = Pin(10, Pin.OUT, value=False)
 boost_enable_pin = Pin(11, Pin.OUT, value=False)
 
 noise_adc = ADC(0)
+
+def voltage_to_db(voltage):
+  return 20 * math.log10(voltage) + 42 # converts voltage to dB. 42 dB accounts for the sensitivity. 
 
 bme280 = BreakoutBME280(i2c, 0x77)
 
@@ -60,20 +64,23 @@ def get_sensor_readings(seconds_since_last, is_usb_power):
   min_value = 1.65
   max_value = 1.65
   while time.ticks_diff(time.ticks_ms(), start) < MIC_SAMPLE_TIME_MS:
-    value = (noise_adc.read_u16() * 3.3) / 65535
-    min_value = min(min_value, value)
-    max_value = max(max_value, value)
+    # value = (noise_adc.read_u16() * 3.3) / 65535
+    # commented out previous command to try new command to convert to dB
+    mic_voltage = noise_adc.read_u16() * 3.3 / 65535  # Still needed to get voltage
+    decibels = voltage_to_db(mic_voltage) # Convert to dB
+    min_value = min(min_value, decibels) # Update with dB value
+    max_value = max(max_value, decibels)
   
-  noise_vpp = max_value - min_value
-
+  noise_vpp = max_value - min_value # Vpp is now in dB
+  
+  # Unit symbols added
   from ucollections import OrderedDict
   return OrderedDict({
-    "temperature": round(bme280_data[0], 2),
-    "humidity": round(bme280_data[2], 2),
-    "pressure": round(bme280_data[1] / 100.0, 2),
-    "noise": round(noise_vpp, 3),
-    "pm1": particulates(particulate_data, PM1_UGM3), 
-    "pm2_5": particulates(particulate_data, PM2_5_UGM3), 
-    "pm10": particulates(particulate_data, PM10_UGM3)
+    "temperature": f"{round(bme280_data[0], 2)} °C",
+    "humidity": f"{round(bme280_data[2], 2)} %",
+    "pressure": f"{round(bme280_data[1] / 100.0, 2)} hPa",
+    "noise": f"{round(noise_vpp, 3)} dB",
+    "pm1": f"{particulates(particulate_data, PM1_UGM3)} µg/m³", 
+    "pm2_5": f"{particulates(particulate_data, PM2_5_UGM3)} µg/m³", 
+    "pm10": f"{particulates(particulate_data, PM10_UGM3)} µg/m³"
   })
-
